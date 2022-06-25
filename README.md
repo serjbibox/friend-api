@@ -11,8 +11,8 @@
 Причина: предотвращения утечки персональных данных без авторизации
 
 ### Запуск:  
-docker build -t friend-api:latest -f Dockerfile .
-docker run -d -p 8080:8080 -p 5432:5432 friend-api
+docker build -t friend-api:latest -f Dockerfile .  
+docker run -d -p 8080:8080 -p 5432:5432 friend-api  
 
 ### Деплой на Heroku
 - зарегистрировать аккаунт Heroku
