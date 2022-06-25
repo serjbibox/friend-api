@@ -13,7 +13,7 @@ import (
 
 const (
 	default_port     = "8080"
-	FRIEND_HTTP_PORT = "FRIEND_HTTP_PORT"
+	FRIEND_HTTP_PORT = "PORT"
 )
 
 type Server struct {

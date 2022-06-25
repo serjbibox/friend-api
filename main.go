@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
 	dao.DbPrepare()
-	log.Panic(server.New(viper.GetString("port")).Run())
+	log.Panic(server.New(viper.GetString("")).Run())
 }
 
 func initConfig() error {
