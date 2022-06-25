@@ -5,7 +5,7 @@ db:
     host: "ec2-23-23-182-238.compute-1.amazonaws.com"
     port: "5432"
     name: "d3ivripb4vtm54"
-    sslmode: ""
+    sslmode: "disable"
 
 db_tables:
     users_table: "friend_user"
