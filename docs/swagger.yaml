@@ -1,0 +1,168 @@
+definitions:
+  handlers.ErrResponse:
+    description: Структура HTTP ответа ERROR
+    properties:
+      error:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  handlers.InsertResponse:
+    description: Структура HTTP ответа метода POST /v1/auth/register
+    properties:
+      id:
+        example: "123"
+        type: string
+    type: object
+  handlers.UserResponse:
+    properties:
+      birth:
+        example: "2000-07-28"
+        type: string
+      email:
+        example: anastasia.a.krasnova@gmail.com
+        type: string
+      login:
+        example: rubella19
+        type: string
+      name:
+        example: Анастасия
+        type: string
+      phone:
+        example: "+79167003020"
+        type: string
+      tg:
+        example: '@Rubella19'
+        type: string
+    type: object
+  model.User:
+    description: Структура карточки пользователя в теле запроса POST /v1/auth/register
+    properties:
+      birth:
+        example: "2000-07-28"
+        type: string
+      email:
+        example: anastasia.a.krasnova@gmail.com
+        type: string
+      id:
+        example: "11234"
+        type: string
+      login:
+        example: rubella19
+        type: string
+      name:
+        example: Анастасия
+        type: string
+      password:
+        example: 1Qwerty!
+        type: string
+      phone:
+        example: "+79167003020"
+        type: string
+      tg:
+        example: '@Rubella19'
+        type: string
+    type: object
+  model.UserLogin:
+    description: Структура JSON метода POST /v1/auth/login
+    properties:
+      login:
+        example: rubella19
+        type: string
+      password:
+        example: 1Qwerty!
+        type: string
+    type: object
+info:
+  contact:
+    email: serj_bibox@mail.ru
+    name: API Support
+  description: API для взаимодействия с сервером платформы ДРУГ.
+  title: API для платформы ДРУГ
+  version: "1.0"
+paths:
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: запрос на авторизацию
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.InsertResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+      summary: Авторизация пользователя
+      tags:
+      - /v1/auth/login
+  /v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: регистрация карточки пользователя
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.InsertResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+      summary: Создаёт новую запись в таблице friend_user
+      tags:
+      - /v1/auth/register
+  /v1/user:
+    get:
+      parameters:
+      - description: friend_user PRIMARY KEY ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/handlers.ErrResponse'
+      summary: Получает запись из таблицы friend_user по ID записи в query parameter
+      tags:
+      - /v1/user
+swagger: "2.0"
